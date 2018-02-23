@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Paddle.gd" type="Script" id=1]
+[ext_resource path="res://Sprite.gd" type="Script" id=2]
+
+[node name="Paddle" type="Node2D"]
+
+position = Vector2( 200, 200 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+player = 1
+speed = 300
+margin = 100
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 30, 160 )
+script = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+color = Color( 1, 0, 0, 1 )
+
+
