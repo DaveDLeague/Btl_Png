@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Paddle.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 15, 80 )
 
 [node name="Paddle" type="Area2D" index="0"]
 
@@ -18,10 +23,8 @@ player = 1
 margin = 100
 color = Color( 1, 0, 0, 1 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
-build_mode = 0
-polygon = PoolVector2Array( 0, 0, 30, 0, 30, 160, 0, 160 )
-_sections_unfolded = [ "Transform" ]
+shape = SubResource( 1 )
 
 

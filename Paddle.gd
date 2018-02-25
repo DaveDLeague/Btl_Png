@@ -7,6 +7,9 @@ export var color = Color(1, 0, 0, 1)
 
 var width = 30
 var height = 160
+var hw = width / 2
+var hh = height / 2
+
 
 var playerString
 
@@ -24,11 +27,10 @@ func _ready():
 		
 	elif player == 2:
 		playerString = "right"
-		position.x = get_viewport_rect().size.x - width - margin
+		position.x = get_viewport_rect().size.x - margin
 		color = Color(0.4, 0, 1, 1)
 	
-	
-	rect = Rect2(Vector2(0, 0), Vector2(width, height))
+	rect = Rect2(Vector2(-hw, -hh), Vector2(width, height))
 	
 	set_process(true)
 
@@ -41,10 +43,10 @@ func _process(delta):
 		position.y += speed * delta
 		update = true
 	
-	if position.y < 11:
-		position.y = 11
-	elif position.y > get_viewport_rect().size.y - height - 11:
-		position.y = get_viewport_rect().size.y - height - 11
+	if position.y < 11 + hh:
+		position.y = 11 + hh
+	elif position.y > get_viewport_rect().size.y - hh - 11:
+		position.y = get_viewport_rect().size.y - hh - 11
 	
 	if update:
 		update()

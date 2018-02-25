@@ -26,6 +26,6 @@ func on_collision(area):
 	if "Barrier" in  area.name:
 		vel.y = -vel.y
 	if "Paddle" in area.name:
-		var cen = (area.get_position() + (Vector2(area.width, area.height) / 2))
+		var cen = area.get_position()
 		var newVec = (position - cen).normalized()
 		vel = newVec * speed
