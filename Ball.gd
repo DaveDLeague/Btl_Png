@@ -1,18 +1,31 @@
-extends Node2D
+extends Area2D
 
-onready var sprite = find_node("Ball_Sprite")
-
-export var speed = 5
-export var startAngle = 0
-export var color = Color(1, 0, 1, 1)
-export var radius = 15
+onready var texture = find_node("Sprite")
 
 var angle
+export var speed = 400
+var vel
 
 func _ready():
+	randomize()
+	angle = 0#randi() % 360
+	vel = Vector2(cos(angle) * speed, sin(angle) * speed)
+	connect("area_entered", self, "on_collision")
+	texture.modulate = Color(1, 0, 0, 1)
 	set_process(true)
-	sprite.color = color;
-	sprite.radius = radius;
 
 func _process(delta):
-	pass
+	position += vel * delta
+	
+	if position.y < 10:
+		position.y = 10
+	elif position.y > get_viewport_rect().size.y - 10:
+		position.y = get_viewport_rect().size.y - 10
+
+func on_collision(area):
+	if "Barrier" in  area.name:
+		vel.y = -vel.y
+	if "Paddle" in area.name:
+		var cen = (area.get_position() + (Vector2(area.width, area.height) / 2))
+		var newVec = (position - cen).normalized()
+		vel = newVec * speed

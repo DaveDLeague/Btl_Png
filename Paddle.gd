@@ -1,40 +1,58 @@
-extends Node2D
+extends Area2D
 
+export var speed = 400
 export var player = 1
-export var speed = 300
 export var margin = 100
+export var color = Color(1, 0, 0, 1)
 
-onready var sprite = find_node("Paddle_Sprite")
-var plrStr
-var updateGraphics = true;
+var width = 30
+var height = 160
 
-func _process(delta):
-	if Input.is_action_pressed(plrStr + "_move_up"):
-		position.y -= speed * delta;
-		updateGraphics = true;
-	if Input.is_action_pressed(plrStr + "_move_down"):
-		position.y += speed * delta;
-		updateGraphics = true;
-	
-	var ht = get_viewport_rect().size.y - sprite.scale.y
-	
-	if position.y < 0: 
-		position.y = 0
-	elif position.y > ht:
-		position.y = ht
-		
-	if updateGraphics:
-		sprite.update()
-		updateGraphics = false;
+var playerString
+
+var rect
+
+var update = true;
 
 func _ready():
+	connect("area_entered", self, "on_collision")
+	
 	if player == 1:
-		plrStr = "left"
-		sprite.color = Color(1, 0, 0, 1)
+		playerString = "left"
 		position.x = margin
+		color = Color(1, 0, 0.4, 1)
 		
 	elif player == 2:
-		plrStr = "right"
-		sprite.color = Color(0, 0, 1, 1)
-		position.x = get_viewport_rect().size.x - margin
-	set_process(true);
+		playerString = "right"
+		position.x = get_viewport_rect().size.x - width - margin
+		color = Color(0.4, 0, 1, 1)
+	
+	
+	rect = Rect2(Vector2(0, 0), Vector2(width, height))
+	
+	set_process(true)
+
+func _process(delta):
+	if Input.is_action_pressed(playerString + "_move_up"):
+		position.y -= speed * delta
+		update = true
+		
+	if Input.is_action_pressed(playerString + "_move_down"):
+		position.y += speed * delta
+		update = true
+	
+	if position.y < 11:
+		position.y = 11
+	elif position.y > get_viewport_rect().size.y - height - 11:
+		position.y = get_viewport_rect().size.y - height - 11
+	
+	if update:
+		update()
+		update = false
+
+func _draw():
+	draw_rect(rect, color, true)
+	
+
+func on_collision(area):
+	print("BOOM")
