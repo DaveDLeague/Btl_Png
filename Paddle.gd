@@ -4,7 +4,7 @@ export var player = 1
 export var speed = 300
 export var margin = 100
 
-onready var sprite = find_node("Sprite")
+onready var sprite = find_node("Paddle_Sprite")
 var plrStr
 var updateGraphics = true;
 

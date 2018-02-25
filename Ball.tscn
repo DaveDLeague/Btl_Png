@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Ball.gd" type="Script" id=1]
+[ext_resource path="res://Ball_Sprite.gd" type="Script" id=2]
+
+[node name="Ball" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+speed = 5
+startAngle = 0
+color = Color( 1, 0, 1, 1 )
+radius = 15
+
+[node name="Ball_Sprite" type="Sprite" parent="." index="0"]
+
+script = ExtResource( 2 )
+
+
