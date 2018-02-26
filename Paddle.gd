@@ -57,4 +57,4 @@ func _draw():
 	
 
 func on_collision(area):
-	print("BOOM")
+	pass

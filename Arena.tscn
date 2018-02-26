@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Area_Sprite.gd" type="Script" id=1]
 [ext_resource path="res://Paddle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Base.tscn" type="PackedScene" id=5]
 
 [node name="Arena" type="Node2D"]
 
@@ -19,8 +20,9 @@ position = Vector2( 180.383, 165.988 )
 
 [node name="Paddle2" parent="." index="2" instance=ExtResource( 2 )]
 
-position = Vector2( 800, 200 )
+position = Vector2( 180.383, 165.988 )
 player = 2
+color = Color( 0, 0.015625, 1, 1 )
 
 [node name="Ball" parent="." index="3" instance=ExtResource( 3 )]
 
@@ -31,5 +33,13 @@ position = Vector2( 508.773, 260.694 )
 [node name="Barrier2" parent="." index="5" instance=ExtResource( 4 )]
 
 position = Vector2( 0, 565 )
+
+[node name="Base" parent="." index="6" instance=ExtResource( 5 )]
+
+position = Vector2( 0, 288 )
+
+[node name="Base2" parent="." index="7" instance=ExtResource( 5 )]
+
+position = Vector2( 1024, 288 )
 
 
