@@ -54,7 +54,6 @@ func _process(delta):
 
 func _draw():
 	draw_rect(rect, color, true)
-	
 
 func on_collision(area):
 	pass
