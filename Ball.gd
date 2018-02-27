@@ -6,6 +6,10 @@ onready var ptcl = find_node("Particles2D")
 var angle
 export var speed = 400
 export var color = Color(1, 0, 1, 1)
+
+var base1Active = true
+var base2Active = true
+
 var vel
 #var col = []
 func _ready():
@@ -28,34 +32,50 @@ func _process(delta):
 	var h = get_viewport_rect().size.y - 10
 	
 	if position.y < 10:
-		position.y = 10
+		position.y = 11
 	elif position.y > h:
-		position.y = h
-	if position.x < 10:
-		position.x = 10
-	elif position.x > w:
-		position.x = w
+		position.y = h - 1
+	
 	update()
 
 func on_collision(area):
+	speed += 5
+	
 	if "Barrier" in  area.name:
 		vel.y = -vel.y
 	elif "Paddle" == area.name:
+		texture.modulate = area.color
+		ptcl.process_material.color = area.color
+		
 		var cen = area.get_position()
+		if position.x < cen.x && vel.x > 0:
+			position = cen + Vector2(20, 0)
+			vel = Vector2(1, 0) * speed
+			return
 		var newVec = (position - cen).normalized()
 		vel = newVec * speed
-		speed += 15
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
 	elif "Paddle2" == area.name:
-		var cen = area.get_position()
-		var newVec = (position - cen).normalized()
-		vel = newVec * speed
-		speed += 15
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
-	elif "Base" in area.name:
+		
+		var cen = area.get_position()
+		if position.x > cen.x && vel.x < 0:
+			position = cen - Vector2(20, 0)
+			vel = Vector2(-1, 0) * speed
+			return
+		var newVec = (position - cen).normalized()
+		vel = newVec * speed
+	elif "Base2" == area.name:
 		vel.x = -vel.x
+		if area.health <= 0:
+			base1Active = false
+		
+	elif "Base" == area.name:
+		vel.x = -vel.x
+		if area.health <= 0:
+			base1Active = false
 
 func _draw():
 	pass
