@@ -1,12 +1,14 @@
 extends Area2D
 
+export var baseNumber = 1
 export var color = Color(1, 1, 1, 1)
 export var health = 4.0
 export var max_health = 4.0
 export var damage = 1.0
 
+signal hit_by_ball
+
 func _ready():
-	#update()
 	connect("area_entered", self, "on_collision")
 
 func _draw():
@@ -19,3 +21,4 @@ func on_collision(area):
 		update()
 		if health <= 0:
 			call_deferred("free")
+		emit_signal("hit_by_ball")
