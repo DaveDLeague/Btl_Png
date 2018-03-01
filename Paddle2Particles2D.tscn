@@ -5,7 +5,7 @@
 [sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 1 )
-colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 0, 0 )
+colors = PoolColorArray( 0, 0, 1, 1, 0, 0, 1, 0 )
 
 [sub_resource type="GradientTexture" id=2]
 
@@ -26,7 +26,7 @@ flatness = 0.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 100.0
 initial_velocity_random = 1.0
-angular_velocity = 1.0
+angular_velocity = 0.0
 angular_velocity_random = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
@@ -52,7 +52,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Gravity", "Initial Velocity", "Scale", "Spread" ]
 
-[node name="PaddleParticles2D" type="Particles2D"]
+[node name="Paddle2Particles2D" type="Particles2D"]
 
 emitting = false
 amount = 16

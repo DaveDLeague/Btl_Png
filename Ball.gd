@@ -4,22 +4,25 @@ onready var texture = find_node("Sprite")
 onready var ptcl = find_node("Particles2D")
 onready var clshp = find_node("CollisionShape2D")
 onready var barPtcl = preload("res://BarrierParticles2D.tscn")
-
+onready var padPtcl = preload("res://PaddleParticles2D.tscn")
+onready var pad2Ptcl = preload("res://Paddle2Particles2D.tscn")
 
 var angle
 export var speed = 400
 export var color = Color(1, 0, 1, 1)
 
-var base1Active = true
-var base2Active = true
+onready var base1 = get_parent().find_node("Base")
+onready var base2 = get_parent().find_node("Base2")
+
+signal off_map(winner)
 
 var vel
+var startPos
 
 func _ready():
-	#randomize()
-	#barPtcl = find_node("BarrierParticles2D")
 	angle = 0
 	vel = Vector2(cos(angle) * speed, sin(angle) * speed)
+	startPos = position
 	connect("area_entered", self, "on_collision")
 	texture.modulate = color
 	ptcl.process_material.color = color
@@ -35,6 +38,19 @@ func _process(delta):
 		position.y = 11
 	elif position.y >= h:
 		position.y = h - 1
+		
+	if position.x <= 10 && base1.health > 0:
+		position.x = 11
+	elif position.x >= w && base2.health > 0:
+		position.x = w - 1	
+	elif position.x < -20:
+		emit_signal("off_map", "player2")
+		position = startPos
+		vel = Vector2(0, 0)
+	elif position.x > get_viewport_rect().size.x + 20:
+		emit_signal("off_map", "player1")
+		position = startPos
+		vel = Vector2(0, 0)
 
 func on_collision(area):
 	speed += 10
@@ -45,33 +61,34 @@ func on_collision(area):
 	elif "Paddle" == area.name:
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
-		position -= vel.normalized() * speed * 0.01
+		position -= vel.normalized() * speed * 0.02
 		var cen = area.get_position()
 		if position.x < cen.x && vel.x > 0:
 			position = cen + Vector2(20, 0)
 			vel = Vector2(1, 0) * speed
+			add_child(padPtcl.instance())
 			return
 		var newVec = (position - cen).normalized()
 		vel = newVec * speed
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
+		add_child(padPtcl.instance())
 	elif "Paddle2" == area.name:
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
-		position -= vel.normalized() * speed * 0.01
+		position -= vel.normalized() * speed * 0.02
 		var cen = area.get_position()
 		if position.x > cen.x && vel.x < 0:
 			position = cen - Vector2(20, 0)
 			vel = Vector2(-1, 0) * speed
+			add_child(pad2Ptcl.instance())
 			return
 		var newVec = (position - cen).normalized()
 		vel = newVec * speed
+		add_child(pad2Ptcl.instance())
 	elif "Base2" == area.name:
 		vel.x = -vel.x
-		if area.health <= 0:
-			base1Active = false
-		
+		add_child(pad2Ptcl.instance())
 	elif "Base" == area.name:
 		vel.x = -vel.x
-		if area.health <= 0:
-			base1Active = false
+		add_child(padPtcl.instance())

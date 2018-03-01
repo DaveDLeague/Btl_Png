@@ -25,7 +25,7 @@ func _ready():
 	if player == 1:
 		playerString = "left"
 		position.x = margin
-		color = Color(1, 0, 0.4, 1)
+		color = Color(1, 0, 0, 1)
 		find_node("Particles2D2").free()
 		ptcl = find_node("Particles2D")
 		ptcl.process_material.color.r = color.r
@@ -36,7 +36,7 @@ func _ready():
 	elif player == 2:
 		playerString = "right"
 		position.x = get_viewport_rect().size.x - margin
-		color = Color(0.4, 0, 1, 1)
+		color = Color(0, 0, 1, 1)
 		find_node("Particles2D").free()
 		ptcl = find_node("Particles2D2")
 		ptcl.process_material.color.r = color.r

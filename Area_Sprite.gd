@@ -1,9 +1,34 @@
 extends Sprite
 
+onready var ball = get_parent().find_node("Ball")
+onready var cam = get_parent().find_node("Camera2D")
+onready var base1 = get_parent().find_node("Base")
+onready var base2 = get_parent().find_node("Base2")
+
+var camShake = false
+var shakeTimer = 0
+
+func game_over(player):
+	print(player)
+
+func base_hit():
+	camShake = true
+	shakeTimer = OS.get_ticks_msec()
+
 func _ready():
+	ball.connect("off_map", self, "game_over")
+	base1.connect("hit_by_ball", self, "base_hit")
+	base2.connect("hit_by_ball", self, "base_hit")
 	set_process(true)
 
 func _process(delta):
+	if camShake:
+		randomize()
+		cam.offset += Vector2(randf() - 0.5, randf() - 0.5) * delta * 100
+		if OS.get_ticks_msec() - shakeTimer >= 500:
+			camShake = false
+			cam.offset = Vector2(0, 0)
+		
 	if Input.is_action_pressed("exit_game"):
 		get_tree().quit()
 	

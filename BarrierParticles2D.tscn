@@ -52,7 +52,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angular Velocity", "Animation", "Color", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Scale", "Spread", "Trail" ]
 
-[node name="BarrierParticles2D" type="Particles2D" index="0"]
+[node name="BarrierParticles2D" type="Particles2D"]
 
 emitting = false
 amount = 32

@@ -12,13 +12,15 @@ func _ready():
 	connect("area_entered", self, "on_collision")
 
 func _draw():
-	draw_rect(Rect2(Vector2(-8, -277), Vector2(16, 553)), color, false)
+	draw_rect(Rect2(Vector2(-8, -277), Vector2(16, 553)), color, true)
+	if health <= 0:
+		monitorable = false
+		monitoring = false
 
 func on_collision(area):
 	if area.name == "Ball":
 		health -= damage
-		color = Color(1, 1, 1, health/max_health)
+		color.a = health/max_health
 		update()
-		if health <= 0:
-			call_deferred("free")
+		
 		emit_signal("hit_by_ball")
