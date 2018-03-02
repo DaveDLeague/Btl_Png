@@ -1,5 +1,8 @@
 extends Area2D
 
+onready var crash = find_node("CrashStreamPlayer")
+onready var boop = find_node("BoopStreamPlayer")
+onready var pew = find_node("PewStreamPlayer")
 onready var texture = find_node("Sprite")
 onready var ptcl = find_node("Particles2D")
 onready var clshp = find_node("CollisionShape2D")
@@ -26,6 +29,7 @@ func _ready():
 	connect("area_entered", self, "on_collision")
 	texture.modulate = color
 	ptcl.process_material.color = color
+	
 	set_process(true)
 
 func _process(delta):
@@ -58,11 +62,13 @@ func on_collision(area):
 	if "Barrier" in  area.name:
 		vel.y = -vel.y
 		add_child(barPtcl.instance())
+		boop.play()
 	elif "Paddle" == area.name:
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
 		position -= vel.normalized() * speed * 0.02
 		var cen = area.get_position()
+		pew.play()
 		if position.x < cen.x && vel.x > 0:
 			position = cen + Vector2(20, 0)
 			vel = Vector2(1, 0) * speed
@@ -73,11 +79,13 @@ func on_collision(area):
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
 		add_child(padPtcl.instance())
+		
 	elif "Paddle2" == area.name:
 		texture.modulate = area.color
 		ptcl.process_material.color = area.color
 		position -= vel.normalized() * speed * 0.02
 		var cen = area.get_position()
+		pew.play()
 		if position.x > cen.x && vel.x < 0:
 			position = cen - Vector2(20, 0)
 			vel = Vector2(-1, 0) * speed
@@ -87,8 +95,10 @@ func on_collision(area):
 		vel = newVec * speed
 		add_child(pad2Ptcl.instance())
 	elif "Base2" == area.name:
+		crash.play()
 		vel.x = -vel.x
 		add_child(pad2Ptcl.instance())
 	elif "Base" == area.name:
+		crash.play()
 		vel.x = -vel.x
 		add_child(padPtcl.instance())

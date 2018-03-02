@@ -24,7 +24,7 @@ func _ready():
 func _process(delta):
 	if camShake:
 		randomize()
-		cam.offset += Vector2(randf() - 0.5, randf() - 0.5) * delta * 100
+		cam.offset += Vector2(randf() - 0.5, randf() - 0.5) * delta * 250
 		if OS.get_ticks_msec() - shakeTimer >= 500:
 			camShake = false
 			cam.offset = Vector2(0, 0)

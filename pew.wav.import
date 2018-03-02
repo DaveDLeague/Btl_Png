@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pew.wav-ba85530bca452d6c8c66ec190076eac1.sample"
+
+[deps]
+
+source_file="res://pew.wav"
+source_md5="568c41d2d67159e505e23b4153d44e40"
+
+dest_files=[ "res://.import/pew.wav-ba85530bca452d6c8c66ec190076eac1.sample" ]
+dest_md5="25485ef6cfe257451fcb0e19d0154d8b"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
