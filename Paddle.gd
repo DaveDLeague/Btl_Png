@@ -1,6 +1,6 @@
-extends Area2D
+extends KinematicBody2D
 
-export var speed = 400
+export var speed = 700
 export var player = 1
 export var margin = 100
 export var color = Color(1, 0, 0, 1)
@@ -19,9 +19,17 @@ var rect
 
 var update = true;
 
-func _ready():
-	connect("area_entered", self, "on_collision")
+onready var ball = get_parent().find_node("Ball")
 
+func base_hit(b):
+	if b == player:
+		var amt = ((base.max_health - base.health) / base.max_health) * 1000.0
+		ptcl.process_material.linear_accel = amt
+		update()
+
+func _ready():
+	ball.connect("hitBase", self, "base_hit")
+	
 	if player == 1:
 		playerString = "left"
 		position.x = margin
@@ -48,20 +56,14 @@ func _ready():
 	
 	rect = Rect2(Vector2(-hw, -hh), Vector2(width, height))
 	
-	set_process(true)
 
-func base_hit():
-	var amt = ((base.max_health - base.health) / base.max_health) * 1000.0
-	ptcl.process_material.linear_accel = amt
-	update()
-
-func _process(delta):
+func _physics_process(delta):
 	if Input.is_action_pressed(playerString + "_move_up"):
-		position.y -= speed * delta
+		move_and_slide(Vector2(0, -speed))
 		update = true
 		
 	if Input.is_action_pressed(playerString + "_move_down"):
-		position.y += speed * delta
+		move_and_slide(Vector2(0, speed))
 		update = true
 	
 	if position.y < 11 + hh:

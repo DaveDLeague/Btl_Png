@@ -7,10 +7,10 @@ path="res://.import/crash.wav-e2b110f0a1c07525dc0bdb01bbdf35f9.sample"
 [deps]
 
 source_file="res://crash.wav"
-source_md5="c0b5aeebdb2df107210bfb0ec95749a9"
+source_md5="2cad52fca525eb75643e2c30c6ff51aa"
 
 dest_files=[ "res://.import/crash.wav-e2b110f0a1c07525dc0bdb01bbdf35f9.sample" ]
-dest_md5="77823ff12ed9a8b93402f031a68a2513"
+dest_md5="b56cd43c2343e1abecfc863c719e976a"
 
 [params]
 

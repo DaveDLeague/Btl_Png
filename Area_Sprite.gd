@@ -11,14 +11,13 @@ var shakeTimer = 0
 func game_over(player):
 	print(player)
 
-func base_hit():
+func base_hit(base):
 	camShake = true
 	shakeTimer = OS.get_ticks_msec()
 
 func _ready():
 	ball.connect("off_map", self, "game_over")
-	base1.connect("hit_by_ball", self, "base_hit")
-	base2.connect("hit_by_ball", self, "base_hit")
+	ball.connect("hitBase", self, "base_hit")
 	set_process(true)
 
 func _process(delta):

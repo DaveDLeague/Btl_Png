@@ -37,6 +37,7 @@ exit_game=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name"
 
 [physics]
 
+2d/physics_engine="GodotPhysics"
 2d/thread_model=2
 
 [rendering]

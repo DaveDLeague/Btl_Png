@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 
 export var baseNumber = 1
 export var color = Color(1, 1, 1, 1)
@@ -6,21 +6,23 @@ export var health = 4.0
 export var max_health = 4.0
 export var damage = 1.0
 
+onready var ball = get_parent().find_node("Ball")
+
 signal hit_by_ball
 
 func _ready():
-	connect("area_entered", self, "on_collision")
+	ball.connect("hitBase", self, "on_collision")
 
 func _draw():
 	draw_rect(Rect2(Vector2(-8, -277), Vector2(16, 553)), color, true)
 	if health <= 0:
-		monitorable = false
-		monitoring = false
+		pass
 
-func on_collision(area):
-	if area.name == "Ball":
+func on_collision(base):
+	if base == baseNumber:
 		health -= damage
+		if health <= 0:
+			add_collision_exception_with(ball)
 		color.a = health/max_health
 		update()
 		
-		emit_signal("hit_by_ball")

@@ -108,18 +108,15 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Gravity", "Linear Accel", "Spread" ]
 
-[node name="Paddle" type="Area2D"]
+[node name="Paddle" type="KinematicBody2D"]
 
 input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
-speed = 400
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
+speed = 700
 player = 1
 margin = 100
 color = Color( 1, 0, 0, 1 )
