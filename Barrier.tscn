@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Barrier_Sprite.gd" type="Script" id=1]
+[ext_resource path="res://Barrier.gd" type="Script" id=1]
 
-[node name="Barrier" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 512, 64 )
+
+[node name="Barrier" type="StaticBody2D" index="0"]
 
 input_pickable = true
 collision_layer = 1
@@ -11,17 +16,15 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 1.0
+script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Barrier_Sprite" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 1025, 10 )
-script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-build_mode = 0
-polygon = PoolVector2Array( 0, 0, 1024, 0, 1024, 10, 0, 10 )
+shape = SubResource( 1 )
 
 

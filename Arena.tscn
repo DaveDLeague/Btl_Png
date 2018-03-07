@@ -69,8 +69,10 @@ _sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Tran
 
 [node name="Barrier" parent="." index="7" instance=ExtResource( 5 )]
 
+position = Vector2( 512, -56 )
+
 [node name="Barrier2" parent="." index="8" instance=ExtResource( 5 )]
 
-position = Vector2( 0, 565 )
+position = Vector2( 512, 630 )
 
 

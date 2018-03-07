@@ -89,6 +89,7 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear" ]
 speed = 500
 color = Color( 1, 0, 1, 1 )
+speedInc = 30
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 

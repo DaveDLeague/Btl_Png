@@ -16,6 +16,7 @@ var angle
 var startPos
 export var speed = 500
 export var color = Color(1, 0, 1, 1)
+export var speedInc = 30
 
 func _ready():
 	angle = 0
@@ -28,44 +29,58 @@ func _physics_process(delta):
 	var bodies = get_colliding_bodies()
 	for body in bodies:
 		if body.name == "Paddle2":
-			color = body.color
-			texture.modulate = body.color
-			ptcl.process_material.color = body.color
+			pew.play()
+			if color != body.color:
+				speed += speedInc				
+				color = body.color
+				texture.modulate = body.color
+				ptcl.process_material.color = body.color
 			var vec = (position - body.position).normalized()
 			var p2 = pad2Ptcl.instance()
 			p2.position -= vec * 15
 			add_child(p2)
-			speed += 10
 			linear_velocity = vec * speed
 			
 		elif body.name == "Paddle":
-			color = body.color
-			texture.modulate = body.color
-			ptcl.process_material.color = body.color
+			pew.play()
+			if color != body.color:
+				color = body.color
+				texture.modulate = body.color
+				ptcl.process_material.color = body.color
+				speed += speedInc
 			var vec = (position - body.position).normalized()
 			var p2 = padPtcl.instance()
 			p2.position -= vec * 15
 			add_child(p2)
-			speed += 10
 			linear_velocity = vec * speed
 			
 		elif body.name == "Base":
-			if body.color.r != color.r:
+			var p2 = padPtcl.instance()
+			p2.position -= Vector2(15, 0)
+			add_child(p2)
+			if body.color.r != color.r || body.color.g != color.g || body.color.b != color.b:
+				crash.play()
 				emit_signal("hitBase", 1)
-				var p2 = padPtcl.instance()
-				p2.position -= Vector2(15, 0)
-				add_child(p2)
+			else:
+				boop.play()	
+				
 		elif body.name == "Base2":
-			if body.color.b != color.b:
+			var p2 = pad2Ptcl.instance()
+			p2.position += Vector2(15, 0)
+			add_child(p2)
+			if body.color.r != color.r || body.color.g != color.g || body.color.b != color.b:
+				crash.play()
 				emit_signal("hitBase", 2)
-				var p2 = pad2Ptcl.instance()
-				p2.position += Vector2(15, 0)
-				add_child(p2)
+			else:
+				boop.play()
+				
 		elif body.name == "Barrier":
+			boop.play()
 			var p2 = barPtcl.instance()
 			p2.position -= Vector2(0, 15)
 			add_child(p2)
 		elif body.name == "Barrier2":
+			boop.play()
 			var p2 = barPtcl.instance()
 			p2.position += Vector2(0, 15)
 			add_child(p2)	
@@ -73,5 +88,5 @@ func _physics_process(delta):
 	var ww = get_viewport_rect().size.x
 	var hh = get_viewport_rect().size.y
 	
-	if position.x < -10 || position.x > ww + 10 || position.y < -10 || position.y > hh + 10 :
-		position = startPos
+	#if position.x < -10 || position.x > ww + 10 || position.y < -10 || position.y > hh + 10 :
+	#	position = startPos
